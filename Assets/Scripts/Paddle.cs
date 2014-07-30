@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Paddle : HittableObject
+public class Paddle : MonoBehaviour
 {
 	public float myMoveSpeed = 10f;
 
@@ -11,6 +11,4 @@ public class Paddle : HittableObject
 		position.x += horizontalInput * myMoveSpeed * Time.deltaTime;
 		transform.position = position;
 	}
-
-
 }

@@ -2,11 +2,7 @@
 
 public class Ball : MonoBehaviour 
 {
-
 	public Vector2 myInitialVelocity = new Vector2(0, -3);
-
-	Vector2 myCurrentVelocity;
-
 	private Rigidbody2D myRigidbody;
 
 	void Awake()
@@ -16,17 +12,7 @@ public class Ball : MonoBehaviour
 
 	void Start ()
 	{
-		myCurrentVelocity = myInitialVelocity;
-		myRigidbody.velocity = myCurrentVelocity;
+		myRigidbody.velocity = myInitialVelocity;
 	}
 
-	private void Update()
-	{
-		myRigidbody.velocity = myCurrentVelocity;
-	}
-
-	public void Bounce()
-	{
-		myCurrentVelocity.y *= -1;
-	}
 }
