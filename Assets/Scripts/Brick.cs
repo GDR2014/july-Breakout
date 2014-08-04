@@ -15,6 +15,7 @@ public class Brick : MonoBehaviour
 	    if( other.layer == 8 ) // Layer 8 = Balls
         {
             destroyBrick();
+            increaseScore(1);
 	    }
 	}
 
@@ -22,5 +23,10 @@ public class Brick : MonoBehaviour
     {
         // TODO: Add callback to check for remaining bricks
         Destroy(this.gameObject);
+    }
+
+    void increaseScore( int aScoreAmount )
+    {
+        ScoreManager.Instance.Score += aScoreAmount;
     }
 }
