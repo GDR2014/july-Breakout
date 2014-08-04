@@ -9,8 +9,18 @@ public class Brick : MonoBehaviour
 	/// Called when the brick enters collision with another object.
 	/// </summary>
 	/// <param name="aCollison">Details about the collision.</param>
-	void OnCollisionEnter2D(Collision2D aCollison)
-	{
-		// TODO: Put brick destruction logic here (if the colliding gameObject is a ball or something similar)
+	void OnCollisionEnter2D(Collision2D aCollison) 
+    {
+	    GameObject other = aCollison.gameObject;
+	    if( other.layer == 8 ) // Layer 8 = Balls
+        {
+            destroyBrick();
+	    }
 	}
+
+    void destroyBrick() 
+    {
+        // TODO: Add callback to check for remaining bricks
+        Destroy(this.gameObject);
+    }
 }
