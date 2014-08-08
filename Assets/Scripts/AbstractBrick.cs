@@ -7,9 +7,9 @@ namespace Breakout.Bricks
 	/// </summary>
 	public abstract class AbstractBrick : LevelGenerator.AbstractLevelGeneratorAsset
 	{
-		public delegate void OnBrickDestroyed(AbstractBrick aDestroyedBrick);
+		public delegate void DestroyedEvent(AbstractBrick aDestroyedBrick);
+		public static event DestroyedEvent OnBrickDestroyed;
 
-		public static event OnBrickDestroyed DestroyedEvent;
 
 		/// <summary>
 		/// Called when the brick enters collision with another object.
@@ -27,10 +27,13 @@ namespace Breakout.Bricks
 		private void destroyBrick()
 		{
 			OnThisBrickDestroyed();
-			if(DestroyedEvent != null ) DestroyedEvent(this);
+			if(OnBrickDestroyed != null ) OnBrickDestroyed(this);
 			Destroy(this.gameObject);
 		}
 
+        #region Abstract members
+        public abstract int ScoreValue { get; }
 		public abstract void OnThisBrickDestroyed();
-	}
+        #endregion
+    }
 }

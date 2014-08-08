@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Breakout.Bricks;
+using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 /// <summary>
@@ -34,5 +35,14 @@ public class ScoreManager : MonoBehaviour {
     [SerializeField]
     private GUIText myScoreText;
 
+    void Start()
+    {
+        Score = 0;
+        AbstractBrick.OnBrickDestroyed += brickDestroyedHandler;
+    }
 
+    void brickDestroyedHandler( AbstractBrick brick )
+    {
+        Score += brick.ScoreValue;
+    }
 }

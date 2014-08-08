@@ -15,7 +15,12 @@
 			get { return 2; }
 		}
 
-		public override void OnThisBrickDestroyed()
+	    public override int ScoreValue
+	    {
+	        get { return 1; }
+	    }
+
+	    public override void OnThisBrickDestroyed()
 		{
 			// TODO: Play sound, spawn particles, etc.
 		}
