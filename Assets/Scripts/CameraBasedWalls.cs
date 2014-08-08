@@ -98,12 +98,23 @@ public class CameraBasedWalls : MonoBehaviour
 	[SerializeField]
 	private float myWallThickness = 1.0f;
 
+	/// <summary>
+	/// The physics material for the generated walls.
+	/// </summary>
+	[SerializeField]
+	private PhysicsMaterial2D myWallMaterial;
+
 	void Start()
 	{
 		myLeftWall = gameObject.AddComponent<BoxCollider2D>();
 		myRightWall = gameObject.AddComponent<BoxCollider2D>();
 		myTopWall = gameObject.AddComponent<BoxCollider2D>();
 		myBottomWall = gameObject.AddComponent<BoxCollider2D>();
+
+		myLeftWall.sharedMaterial = myWallMaterial;
+		myRightWall.sharedMaterial = myWallMaterial;
+		myTopWall.sharedMaterial = myWallMaterial;
+		myBottomWall.sharedMaterial = myWallMaterial;
 
 		myLeftWall.hideFlags = HideFlags.HideInInspector;
 		myRightWall.hideFlags = HideFlags.HideInInspector;

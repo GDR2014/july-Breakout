@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Breakout.Bricks
 {
@@ -10,7 +9,6 @@ namespace Breakout.Bricks
 		public BrickFactory()
 		{
 			mySimpleBrick = Resources.Load<SimpleBrick>("Prefabs/Bricks/SimpleBrick");
-			Debug.Log(mySimpleBrick);
 		}
 
 		public SimpleBrick GetNewSimpleBrick()
