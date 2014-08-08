@@ -23,17 +23,17 @@ public class LevelGenerator : MonoBehaviour {
     {
 		float halfGridWidth = myGridWidth / 2.0f;
 		float halfHeightWidth = myGridHeight / 2.0f;
+        float halfBrickWidth = 1; // HACK: Temporary solution until real level generation
 		// TODO: Fix loop to prevent overflow in the case of AssetHeight > 1. This is just a quick "make it work"-solution, though, so it's okay for now.
         for( float row = -halfHeightWidth; row < halfGridWidth; )
         {
 	        AbstractLevelGeneratorAsset asset = null;
-            for( float col = -halfGridWidth; col < halfGridWidth;  )
+            for( float col = -halfGridWidth - halfBrickWidth; col < halfGridWidth-halfBrickWidth;  )
             {
 	            asset = myBrickFactory.GetNewSimpleBrick();
 	            col += asset.AssetWidthInCells;
                 Vector2 assetSize = asset.transform.localScale;
-                assetSize.x = asset.AssetWidthInCells * myCellSize;
-                assetSize.y = asset.AssetHeightInCells * myCellSize;
+                assetSize *= myCellSize;
                 asset.transform.localScale = assetSize;
                 Vector2 position = new Vector2();
                 position.x = col * myCellSize;
