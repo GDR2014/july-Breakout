@@ -29,8 +29,12 @@ public class LevelGenerator : MonoBehaviour {
 	        AbstractLevelGeneratorAsset asset = null;
             for( float col = -halfGridWidth; col < halfGridWidth;  )
             {
-	           asset = myBrickFactory.GetNewSimpleBrick();
+	            asset = myBrickFactory.GetNewSimpleBrick();
 	            col += asset.AssetWidthInCells;
+                Vector2 assetSize = asset.transform.localScale;
+                assetSize.x = asset.AssetWidthInCells * myCellSize;
+                assetSize.y = asset.AssetHeightInCells * myCellSize;
+                asset.transform.localScale = assetSize;
                 Vector2 position = new Vector2();
                 position.x = col * myCellSize;
 				position.y = row * myCellSize;

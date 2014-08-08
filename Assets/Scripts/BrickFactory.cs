@@ -8,7 +8,7 @@ namespace Breakout.Bricks
 
 		public BrickFactory()
 		{
-			mySimpleBrick = Resources.Load<SimpleBrick>("Prefabs/Bricks/SimpleBrick");
+			mySimpleBrick = Resources.Load<SimpleBrick>("Prefabs/Bricks/Brick_Simple_Horizontal");
 		}
 
 		public SimpleBrick GetNewSimpleBrick()
