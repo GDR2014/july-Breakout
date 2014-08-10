@@ -72,5 +72,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ball
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 147
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
