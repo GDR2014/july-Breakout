@@ -38,10 +38,10 @@ public class ScoreManager : MonoBehaviour {
     void Start()
     {
         Score = 0;
-        AbstractBrick.OnBrickDestroyed += brickDestroyedHandler;
+        AbstractBrick.BrickDestroyedEvent += OnBrickDestroyed;
     }
 
-    void brickDestroyedHandler( AbstractBrick brick )
+    void OnBrickDestroyed( AbstractBrick brick )
     {
         Score += brick.ScoreValue;
     }

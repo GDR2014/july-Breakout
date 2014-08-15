@@ -8,8 +8,8 @@ namespace Breakout.Bricks
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class AbstractBrick : LevelGenerator.AbstractLevelGeneratorAsset
 	{
-		public delegate void DestroyedEvent(AbstractBrick aDestroyedBrick);
-		public static event DestroyedEvent OnBrickDestroyed;
+		public delegate void BrickDestroyedHandler(AbstractBrick aDestroyedBrick);
+		public static event BrickDestroyedHandler BrickDestroyedEvent;
 
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Breakout.Bricks
 		private void destroyBrick()
 		{
 			OnThisBrickDestroyed();
-			if(OnBrickDestroyed != null ) OnBrickDestroyed(this);
+			if(BrickDestroyedEvent != null ) BrickDestroyedEvent(this);
 			Destroy(this.gameObject);
 		}
 
