@@ -12,11 +12,13 @@ public class LifeManager : MonoBehaviour
 
     [SerializeField] private GUIText myLivesRemainingText;
     [SerializeField] private const string LIVES_REMAINING_PREFIX_TEXT = "Lives: ";
+    [SerializeField] private DeathTrigger myDeathTrigger;
 
     void Start()
     {
         LifeChangedEvent += OnLifeChanged;
         LifeChangedEvent( myLives );
+        myDeathTrigger.DeathTriggerEvent += OnDeathTrigger;
     }
 
     public void LoseLife()
@@ -31,8 +33,14 @@ public class LifeManager : MonoBehaviour
         LifeChangedEvent( myLives );
     }
 
-    public void OnLifeChanged( int remainingLives )
+    private void OnLifeChanged( int remainingLives )
     {
         myLivesRemainingText.text = LIVES_REMAINING_PREFIX_TEXT + remainingLives;
+    }
+
+    private void OnDeathTrigger( DeathTrigger.DeathTriggerEventType aType, GameObject aGameObject )
+    {
+        if( aType != DeathTrigger.DeathTriggerEventType.EXIT || aGameObject.GetComponent<Ball>() == null ) return;
+        LoseLife();
     }
 }
