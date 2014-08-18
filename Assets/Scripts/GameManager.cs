@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Breakout;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -19,6 +20,7 @@ namespace Assets.Scripts
 		void Start()
 		{
 			LifeManager.LifeChangedEvent += OnLifeChanged;
+			LevelManager.LevelCompletedEvent += OnLevelCompleted;
 		}
 
 		private void resetBall()
@@ -33,9 +35,15 @@ namespace Assets.Scripts
 			
 		}
 
+		private void OnLevelCompleted()
+		{
+			resetBall();
+			LifeManager.Instance.GainLife();
+			LevelManager.Instance.GenerateLevel();
+		}
+
 		private void OnLifeChanged(int currentlives, int previouslives)
 		{
-			Debug.Log(string.Format("Lives: {0}, Previous lives: {1}", currentlives, previouslives));
 			if (currentlives >= previouslives) return; // Only act if a life was lost
 			if (currentlives < 0) gameOver();
 			else resetBall();

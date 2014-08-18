@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-
     public delegate void LifeChangedHandler(int currentLives, int previousLives);
     public static event LifeChangedHandler LifeChangedEvent;
 
@@ -14,6 +13,17 @@ public class LifeManager : MonoBehaviour
     [SerializeField] private GUIText myLivesRemainingText;
     [SerializeField] private const string LIVES_REMAINING_PREFIX_TEXT = "Lives: ";
     [SerializeField] private DeathTrigger myDeathTrigger;
+
+	private static LifeManager _instance;
+
+	public static LifeManager Instance
+	{
+		get
+		{
+			if (_instance == null) _instance = FindObjectOfType<LifeManager>();
+			return _instance;
+		}
+	}
 
     void Start()
     {

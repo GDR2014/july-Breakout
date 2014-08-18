@@ -6,7 +6,7 @@ namespace Breakout.Bricks
 	/// The simplest of bricks. Destroy these to get points and complete the level.
 	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
-	public abstract class AbstractBrick : LevelGenerator.AbstractLevelGeneratorAsset
+	public abstract class AbstractBrick : LevelManager.AbstractLevelGeneratorAsset
 	{
 		public delegate void BrickDestroyedHandler(AbstractBrick aDestroyedBrick);
 		public static event BrickDestroyedHandler BrickDestroyedEvent;
@@ -28,7 +28,7 @@ namespace Breakout.Bricks
 		private void destroyBrick()
 		{
 			OnThisBrickDestroyed();
-			if(BrickDestroyedEvent != null ) BrickDestroyedEvent(this);
+			BrickDestroyedEvent(this);
 			Destroy(this.gameObject);
 		}
 
