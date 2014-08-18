@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
 
-    public delegate void LifeChangedHandler(int currentLives);
+    public delegate void LifeChangedHandler(int currentLives, int previousLives);
     public static event LifeChangedHandler LifeChangedEvent;
 
     [SerializeField]
@@ -17,23 +18,28 @@ public class LifeManager : MonoBehaviour
     void Start()
     {
         LifeChangedEvent += OnLifeChanged;
-        LifeChangedEvent( myLives );
+        LifeChangedEvent( myLives, 0 );
         myDeathTrigger.DeathTriggerEvent += OnDeathTrigger;
     }
 
     public void LoseLife()
     {
-        myLives--;
-        LifeChangedEvent(myLives);
+		changeLives(myLives-1);
     }
 
     public void GainLife()
     {
-        myLives++;
-        LifeChangedEvent( myLives );
+	    changeLives(myLives+1);
     }
 
-    private void OnLifeChanged( int remainingLives )
+	public void changeLives(int newLives)
+	{
+		int previousLives = myLives;
+		myLives = newLives;
+		LifeChangedEvent(myLives, previousLives);
+	}
+
+    private void OnLifeChanged( int remainingLives, int previousLives )
     {
         myLivesRemainingText.text = LIVES_REMAINING_PREFIX_TEXT + remainingLives;
     }
