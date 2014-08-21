@@ -34,7 +34,7 @@ namespace Breakout
 			myBrickFactory.RemainingBricksCountChangedEvent += OnRemainingBricksCountChanged;
 			Camera cam = Camera.main;
 			myCellSize = (cam.orthographicSize * cam.aspect * 2 - myGridMargin * 2) / myGridWidth;
-			FillGrid();
+			GenerateLevel();
 		}
 
 		public void GenerateLevel()
@@ -43,8 +43,16 @@ namespace Breakout
 			{
 				Destroy(brick);
 			}
-			FillGrid();
+            //CreateSingle();
+            FillGrid();
 		}
+
+	    void CreateSingle()
+	    {
+	        AbstractBrick brick = myBrickFactory.GetBrick( BrickType.SIMPLE );
+	        brick.transform.parent = transform;
+	        brick.transform.localPosition = Vector2.zero;
+	    }
 
 		void FillGrid()
 		{
@@ -75,6 +83,7 @@ namespace Breakout
 
 		void OnRemainingBricksCountChanged(int previousValue)
 		{
+            Debug.Log(string.Format("Remaining bricks count changed: Was {0}, is {1}", previousValue, BrickFactory.RemainingBricksCount));
 			if (BrickFactory.RemainingBricksCount > 0) return;
 			LevelCompletedEvent();
 		}

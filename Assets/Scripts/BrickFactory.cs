@@ -21,6 +21,7 @@ namespace Breakout.Bricks
 
 		public BrickFactory()
 		{
+		    AbstractBrick.BrickDestroyedEvent += OnBrickDestroyed;
 			myBricks = new Dictionary<BrickType, AbstractBrick>();
 			myBricks.Add(BrickType.SIMPLE, Resources.Load<SimpleBrick>("Prefabs/Bricks/Brick_Simple_Horizontal"));
 		}
@@ -30,6 +31,7 @@ namespace Breakout.Bricks
 			AbstractBrick brickPrefab;
 			bool exists = myBricks.TryGetValue(aType, out brickPrefab);
 			if(!exists) throw new NotImplementedException(string.Format("{0} does not have a prefab assigned!", aType));
+		    RemainingBricksCount++;
 			return Object.Instantiate(brickPrefab) as SimpleBrick;
 		}
 

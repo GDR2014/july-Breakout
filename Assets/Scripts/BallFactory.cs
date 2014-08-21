@@ -13,7 +13,7 @@ namespace Breakout.Balls
 
         public Ball CreateBall()
         {
-            return new Ball();
+            return Object.Instantiate( myBallPrefab ) as Ball;
         }
     }
 }
