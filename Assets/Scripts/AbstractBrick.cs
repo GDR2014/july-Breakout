@@ -11,7 +11,6 @@ namespace Breakout.Bricks
 		public delegate void BrickDestroyedHandler(AbstractBrick aDestroyedBrick);
 		public static event BrickDestroyedHandler BrickDestroyedEvent;
 
-
 		/// <summary>
 		/// Called when the brick enters collision with another object.
 		/// </summary>

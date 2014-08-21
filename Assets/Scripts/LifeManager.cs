@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using Breakout.Balls;
+using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-
     public delegate void LifeChangedHandler(int currentLives);
     public static event LifeChangedHandler LifeChangedEvent;
 
@@ -12,13 +12,13 @@ public class LifeManager : MonoBehaviour
 
     [SerializeField] private GUIText myLivesRemainingText;
     [SerializeField] private const string LIVES_REMAINING_PREFIX_TEXT = "Lives: ";
-    [SerializeField] private DeathTrigger myDeathTrigger;
+    [SerializeField] public DeathTrigger DeathTrigger { get; private set; }
 
     void Start()
     {
         LifeChangedEvent += OnLifeChanged;
         LifeChangedEvent( myLives );
-        myDeathTrigger.DeathTriggerEvent += OnDeathTrigger;
+        DeathTrigger.DeathTriggerEvent += OnDeathTrigger;
     }
 
     public void LoseLife()
