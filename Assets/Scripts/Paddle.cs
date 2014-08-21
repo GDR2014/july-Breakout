@@ -20,14 +20,13 @@ public class Paddle : MonoBehaviour
     private Dictionary<Ball, bool> myStuckBalls = new Dictionary<Ball, bool>();
 
     [SerializeField] private Transform myBallStuckPosition;
-    public Vector2 BallStuckPosition { get; private set; }
+    public Vector2 BallStuckPosition { get { return myBallStuckPosition.position; } }
 
     // TODO: Move screen width calculation to a proper class
     private Camera myMainCamera;
 
     void Start()
     {
-        BallStuckPosition = myBallStuckPosition.transform.position;
         myMainCamera = Camera.main;
         SetStuck(FindObjectOfType<Ball>());
     }
@@ -73,7 +72,7 @@ public class Paddle : MonoBehaviour
         if (isStuck) return;
         if(!exists) myStuckBalls.Add(aBall, true);
         myStuckBalls[aBall] = true;
-
+	    aBall.rigidbody2D.velocity = Vector2.zero;
         aBall.transform.parent = transform;
         aBall.transform.position = BallStuckPosition;
     }

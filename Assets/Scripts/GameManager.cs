@@ -1,73 +1,52 @@
-﻿using Breakout.Balls;
+﻿using Breakout;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Assets.Scripts
 {
+	public class GameManager : MonoBehaviour
+	{
 
-    public enum GameEventType
-    {
-        START,
-        LEVEL_CLEARED,
-        BALL_LOST,
-        BALL_RESET,
-        GAME_OVER,
-    }
+		private static GameManager myInstance;
 
-    public delegate void GameEventHandler( GameEventType type );
+		public static GameManager Instance
+		{
+			get
+			{
+				if (myInstance == null) myInstance = FindObjectOfType<GameManager>();
+				return myInstance;
+			}
+		}
 
-    public event GameEventHandler GameEvent;
+		void Start()
+		{
+			LifeManager.LifeChangedEvent += OnLifeChanged;
+			LevelManager.LevelCompletedEvent += OnLevelCompleted;
+		}
 
-    private static GameManager myInstance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if( myInstance == null ) myInstance = FindObjectOfType<GameManager>();
-            return myInstance;
-        }
-    }
+		private void resetBall()
+		{
+			Paddle paddle = FindObjectOfType<Paddle>();
+			Ball ball = FindObjectOfType<Ball>();
+			paddle.SetStuck(ball);
+		}
 
-    private void Start()
-    {
-        LifeManager lifeManager = FindObjectOfType<LifeManager>();
-        lifeManager.DeathTrigger.DeathTriggerEvent += OnDeathTrigger;
-    }
+		private void gameOver()
+		{
+			
+		}
 
-    public void StartNewGame()
-    {
-        GameEvent( GameEventType.START );
-    }
+		private void OnLevelCompleted()
+		{
+			resetBall();
+			LifeManager.Instance.GainLife();
+			LevelManager.Instance.GenerateLevel();
+		}
 
-    public void LevelCleared()
-    {
-        GameEvent( GameEventType.LEVEL_CLEARED );
-    }
-
-    public void BallLost()
-    {
-        GameEvent( GameEventType.BALL_LOST );
-    }
-
-    public void ResetBall()
-    {
-        GameEvent( GameEventType.BALL_RESET );
-    }
-
-    public void GameOver()
-    {
-        GameEvent( GameEventType.GAME_OVER );
-    }
-
-    private void OnDeathTrigger( DeathTrigger.DeathTriggerEventType aType, GameObject aGameObject )
-    {
-        if( aType != DeathTrigger.DeathTriggerEventType.EXIT || aGameObject.GetComponent<Ball>() == null ) return;
-
-        BallLost();
-        if( LifeManager.Lives < 0 )
-        {
-            GameOver();
-            return;
-        }
-        ResetBall();
-    }
+		private void OnLifeChanged(int currentlives, int previouslives)
+		{
+			if (currentlives >= previouslives) return; // Only act if a life was lost
+			if (currentlives < 0) gameOver();
+			else resetBall();
+		}
+	}
 }
