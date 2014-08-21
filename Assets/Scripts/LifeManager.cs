@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Breakout.Balls;
 using UnityEngine;
 
 public class LifeManager : MonoBehaviour

@@ -1,7 +1,7 @@
-﻿using Breakout;
+﻿using Breakout.Balls;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Breakout
 {
 	public class GameManager : MonoBehaviour
 	{
